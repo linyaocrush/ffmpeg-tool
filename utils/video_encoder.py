@@ -143,3 +143,13 @@ class VideoEncoder:
                     errors.append("请设置缓冲区大小")
 
         return errors
+
+    @staticmethod
+    def run_ffmpeg_command(command):
+        """执行FFmpeg命令并返回结果"""
+        import subprocess
+        try:
+            result = subprocess.run(command, check=True, capture_output=True, text=True)
+            return True, result.stdout
+        except subprocess.CalledProcessError as e:
+            return False, e.stderr

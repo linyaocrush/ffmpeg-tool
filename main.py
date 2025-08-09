@@ -2,9 +2,11 @@ import sys
 import traceback
 import datetime
 import os
+os.environ['PYTHONDONTWRITEBYTECODE'] = '1'
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTabWidget
 from tabs.subtitle_tab import SubtitleTab
 from tabs.video_transcode_tab import VideoTranscodeTab
+from tabs.audio_video_tab import AudioVideoTab
 
 class CustomApplication(QApplication):
     def notify(self, receiver, event):
@@ -189,6 +191,10 @@ class FFmpegTool(QMainWindow):
         # 添加视频转码标签页
         self.video_transcode_tab = VideoTranscodeTab()
         self.tabs.addTab(self.video_transcode_tab, "视频转码")
+
+        # 添加音视频处理标签页
+        self.audio_video_tab = AudioVideoTab()
+        self.tabs.addTab(self.audio_video_tab, "音视频处理")
 
 def handle_exception(exc_type, exc_value, exc_traceback):
     if issubclass(exc_type, KeyboardInterrupt):
